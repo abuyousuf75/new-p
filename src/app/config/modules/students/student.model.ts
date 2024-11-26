@@ -92,7 +92,13 @@ const localGuardiantSchema = new Schema<TLocalGuardiant>({
 
 const studentSchema = new Schema<TStudent, StudentModel>({
   id: { type: String },
-  password: { type: String, required: [true, 'Password is required'], unique : true, maxlength :[20, 'max 20'] },
+  user: {
+    type: Schema.Types.ObjectId,
+    required: [true, 'User Id is required'],
+    unique: true,
+    ref: 'User'
+  },
+  password: { type: String, required: [true, 'Password is required'], maxlength :[20, 'max 20'] },
   name: {
     type: userNameSchema,
     required: [true, 'Student name is required'],
@@ -148,27 +154,45 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     enum: ['active', 'block'],
     default: 'active',
   },
+},{
+  toJSON: {
+    virtuals : true
+  }
 });
 
 /// presave middleware // hoook : wll work on create() save()
 
-studentSchema.pre('save', function(){
+studentSchema.pre('save',async function(next){
   // console.log(this, 'pre hook : we will save the data')
-  const user = this;
+  const user = this; // doc middleware
   // hassing password to save db
-  bcrypt.hash(user.password,Number(config.bycript_salt_round))
+   user.password = await bcrypt.hash(user.password, Number(config.bycript_salt_round));
 
-
+   next();
+ 
 })
 
 //postsave middleware // hoook
 
-studentSchema.post('save', function(){
-   console.log(this, 'post hook : we will save the data after post');
+studentSchema.post('save', function(doc,next){
+  doc.password = '';
+   next();
 })
 
 
+// /// Query middleware
 
+// studentSchema.pre('find', function(next){
+//     console.log(this)
+// })
+
+
+
+// virtual mongoose
+
+studentSchema.virtual('fullName').get(function(){
+  return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`
+})
 
 
 

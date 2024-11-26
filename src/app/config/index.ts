@@ -8,6 +8,8 @@ export default {
   port: process.env.PORT,
   db_url: process.env.DB_URL,
   bycript_salt_round: process.env.BYCRIPT_SALT_ROUNDS,
+  default_password: process.env.DEFAULT_PASSWORD,
+
 };
 
 //C:\Users\GEN-Z\Desktop\first-project

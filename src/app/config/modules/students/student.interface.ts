@@ -1,5 +1,5 @@
 import { Student } from './student.model';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 
 export type TGuardint = {
@@ -26,6 +26,7 @@ export type TGuardint = {
 
 export type TStudent = {
   id?: string;
+  user: Types.ObjectId;
   password: string,
   name: UserName;
   gender: 'male' | 'female' | 'others';
