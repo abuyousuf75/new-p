@@ -41,7 +41,6 @@ export type TStudent = {
   guardint:TGuardint;
   localGuardiant : TLocalGuardiant;
   profileImage? : string;
-  isActive : 'active' | 'block'
 };
 
 

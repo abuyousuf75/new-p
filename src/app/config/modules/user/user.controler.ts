@@ -1,3 +1,4 @@
+import { Request, Response } from "express";
 import { StudentServices } from "../students/student.service";
 import { studentValidationSchemaZod } from "../students/student.validation.zod";
 import { UserService } from "./user.service";
@@ -24,5 +25,9 @@ const createStudent = async (req: Request, res: Response) => {
       error: error,
     });
   }
+};
+
+export const UserControlers = {
+  createStudent,
 };
 

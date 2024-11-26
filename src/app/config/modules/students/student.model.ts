@@ -149,11 +149,7 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     required: [true, 'Local guardian information is required'],
   },
   profileImage: { type: String },
-  isActive: {
-    type: String,
-    enum: ['active', 'block'],
-    default: 'active',
-  },
+ 
 },{
   toJSON: {
     virtuals : true

@@ -35,6 +35,6 @@ const getSingleStudent = async (req: Request, res : Response) => {
 }
 
 export const StudentControlers = {
-    createStudent, getAllStudents,
+    getAllStudents,
     getSingleStudent
 }

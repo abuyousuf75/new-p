@@ -1,7 +1,9 @@
+import { StudentModel } from './../students/student.interface';
 import config from "../..";
 import { TStudent } from "../students/student.interface";
-import { NewUser, TUser } from "./user.interface";
+import {TUser } from "./user.interface";
 import { User } from "./user.model";
+import { Student } from '../students/student.model';
 
 
 const createStudentIntoDB = async (password: string , studentData: TStudent) => {
@@ -16,21 +18,24 @@ const createStudentIntoDB = async (password: string , studentData: TStudent) => 
   userData.role = 'student';
 
     // crete a user
+    const newUser = await User.create(userData)
 
     // set maulay id
 
    userData.id = '203010001';
 
-  const result = await User.create(userData);
+  
 
-  if(Object.keys(result).length){
+  if(Object.keys(newUser).length){
     // set id , _id,
-    studentData.id = result.id;
-    studentData.user = result._id;
+    studentData.id = newUser.id;
+    studentData.user = newUser._id; // ref id
+
+    const newStudent = await Student.create(studentData);
+    return newStudent;
 
   }
 
-  return result;
 };
 
 export const UserService = { createStudentIntoDB 
