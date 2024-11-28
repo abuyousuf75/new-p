@@ -20,9 +20,15 @@ const getsingleStudentFromDB = async (studentId: string) => {
   return result;
 };
 
-const updateAStdentFromDB = async (studentId: string , updatedDoc = TStudent ) => {
+const updateAStdentFromDB = async (studentId: string , updatedDoc = Student ) => {
 
-  const result = await Student.findByIdAndDelete(studentId,)
+  const result = await Student.findByIdAndUpdate(
+    studentId,
+    {$set:updatedDoc},
+    {new:true}
+
+  );
+  return result
 };
 
 const deleteAStudentfromDB = async (studentId: string) => {
@@ -36,4 +42,5 @@ export const StudentServices = {
   getAllStudentsFromDB,
   getsingleStudentFromDB,
   deleteAStudentfromDB,
+  updateAStdentFromDB,
 };

@@ -58,11 +58,31 @@ const deleteAStudent = async(req:Request, res: Response, next : NextFunction) =>
 
 }
 
+const updateAStudent = async(req: Request , res: Response , next : NextFunction) => {
 
+  try{
+    const {studentId} = req.params;
+  const doc = req.body;
+  const result = await StudentServices.updateAStdentFromDB(studentId,doc);
+
+  res.status(200).json({
+        success: true,
+        message: 'Student updated successfully',
+        data: result,
+      });
+  }
+
+  catch(err){
+    next(err)
+  }
+
+
+}
 
 
 export const StudentControlers = {
   getAllStudents,
   getSingleStudent,
   deleteAStudent,
+  updateAStudent,
 };
