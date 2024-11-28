@@ -1,8 +1,12 @@
-import express, { Application, Request, Response } from 'express';
+
+import express, { Application } from 'express';
 import cors from 'cors';
-import { StudentRoutes } from './app/config/modules/students/student.route';
 import { userRoutes } from './app/config/modules/user/user.route';
 const app: Application = express();
+
+import globalErrorHandeler from './app/config/middleWares/globalerrohandeler';
+import notFound from './app/config/middleWares/notfound';
+import router from './app/config/routes';
 
 
 
@@ -14,10 +18,17 @@ app.use(cors())
 
 // application routes
 
-// app.use('/api/v1/student', StudentRoutes);
-app.use('/api/v1/users', userRoutes);
+app.use('/api/v1',router);
 
 
-console.log(process.cwd())
+app.use(globalErrorHandeler)
+
+//not found route
+
+app.use(notFound)
+
+
+
+
 export default app;
 

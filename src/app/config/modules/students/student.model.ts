@@ -8,8 +8,6 @@ import {
 } from './student.interface';
 import validator from 'validator';
 
-import bcrypt from 'bcrypt'
-import config from '../..';
 
 const userNameSchema = new Schema<UserName>({
   firstName: {
@@ -98,7 +96,7 @@ const studentSchema = new Schema<TStudent, StudentModel>({
     unique: true,
     ref: 'User'
   },
-  password: { type: String, required: [true, 'Password is required'], maxlength :[20, 'max 20'] },
+ 
   name: {
     type: userNameSchema,
     required: [true, 'Student name is required'],
@@ -156,46 +154,12 @@ const studentSchema = new Schema<TStudent, StudentModel>({
   }
 });
 
-/// presave middleware // hoook : wll work on create() save()
-
-studentSchema.pre('save',async function(next){
-  // console.log(this, 'pre hook : we will save the data')
-  const user = this; // doc middleware
-  // hassing password to save db
-   user.password = await bcrypt.hash(user.password, Number(config.bycript_salt_round));
-
-   next();
- 
-})
-
-//postsave middleware // hoook
-
-studentSchema.post('save', function(doc,next){
-  doc.password = '';
-   next();
-})
-
-
-// /// Query middleware
-
-// studentSchema.pre('find', function(next){
-//     console.log(this)
-// })
-
-
 
 // virtual mongoose
 
 studentSchema.virtual('fullName').get(function(){
   return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`
 })
-
-
-
-// studentSchema.methods.isUserExist = async function(id: string){
-//     const exsistingUser = await Student.findOne({id});
-//     return exsistingUser
-// }
 
 // creting an custom instance method
 
