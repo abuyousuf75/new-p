@@ -1,17 +1,17 @@
 
 import status from 'http-status';
-import { NextFunction, Request, Response } from "express";
+import { RequestHandler } from "express";
 import { StudentServices } from "../students/student.service";
 import { studentValidationSchemaZod } from "../students/student.validation.zod";
 import { UserService } from "./user.service";
 import sendResponse from '../../uttiles/sendResponse';
 
 
-const createStudent = async (req: Request, res: Response, next : NextFunction) => {
+const createStudent: RequestHandler = async (req , res, next ) => {
   try {
     const {password , student: studentData } = req.body;
    
-    // const zodPassData = studentValidationSchemaZod.parse(studentData);
+  
 
     const result = await UserService.createStudentIntoDB(password,studentData);
     // res.status(200).json({
