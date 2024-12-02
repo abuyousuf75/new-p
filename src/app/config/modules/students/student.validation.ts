@@ -1,3 +1,4 @@
+
 import { z } from 'zod';
 
 // UserName Schema
@@ -49,34 +50,39 @@ const localguardiantValidationSchema = z.object({
 });
 
 // Main Student Schema
-const studentValidationSchemaZod = z.object({
-  id: z.string(),
-  password: z.string().max(20),
-  name: userNameValidationSchema,
-  gender: z.enum(['male', 'female', 'others'], {
-    required_error: 'Gender is required',
-    invalid_type_error: 'Invalid gender value',
+const createStudentValidationShema = z.object({
+  body: z.object({
+    password: z.string().max(20),
+    student: z.object({
+      name: userNameValidationSchema,
+      gender: z.enum(['male', 'female', 'others'], {
+        required_error: 'Gender is required',
+        invalid_type_error: 'Invalid gender value',
+      }),
+      dateOfBirth: z.string().optional(),
+      email: z
+        .string()
+        .trim()
+        .min(1, 'Email is required')
+        .email('Invalid email format'),
+      contactNo: z.string().trim().min(1, 'Contact number is required'),
+      emergencyContactNo: z
+        .string()
+        .trim()
+        .min(1, 'Emergency contact number is required'),
+      bloodGroup: z
+        .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
+        .optional(),
+      presentAddress: z.string().trim().min(1, 'Present address is required'),
+      permanentAddress: z
+        .string()
+        .trim()
+        .min(1, 'Permanent address is required'),
+      guardint: guardiantValidationSchema,
+      localGuardiant: localguardiantValidationSchema,
+      profileImage: z.string().optional(),
+    }),
   }),
-  dateOfBirth: z.string().optional(),
-  email: z
-    .string()
-    .trim()
-    .min(1, 'Email is required')
-    .email('Invalid email format'),
-  contactNo: z.string().trim().min(1, 'Contact number is required'),
-  emergencyContactNo: z
-    .string()
-    .trim()
-    .min(1, 'Emergency contact number is required'),
-  bloodGroup: z
-    .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
-    .optional(),
-  presentAddress: z.string().trim().min(1, 'Present address is required'),
-  permanentAddress: z.string().trim().min(1, 'Permanent address is required'),
-  guardint: guardiantValidationSchema,
-  localGuardiant: localguardiantValidationSchema,
-  profileImage: z.string().optional(),
-  isActive: z.enum(['active', 'block']).default('active'),
 });
 
-export { studentValidationSchemaZod };
+export default createStudentValidationShema;

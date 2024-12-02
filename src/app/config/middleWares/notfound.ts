@@ -1,9 +1,9 @@
 
-import status from 'http-status';
+import httpStatus from 'http-status-codes';
 import { Request, Response, NextFunction } from 'express';
 
 const notFound = (_req: Request, res: Response, _next: NextFunction) => {
-  return res.status(status.NOT_FOUND).json({
+ res.status(httpStatus.NOT_FOUND).json({
     success : false,
     message : 'API not found',
     error:  ''

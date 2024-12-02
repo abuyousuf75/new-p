@@ -5,7 +5,7 @@ const globalErrorHandeler = (err: any, _req: Request, res: Response, _next: Next
   {
     const statusCode = 500;
     const message = err.message || 'Something went worng';
-    return res.status(statusCode).json({
+    res.status(statusCode).json({
       success: false,
       message,
       error: err,
