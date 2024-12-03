@@ -81,6 +81,7 @@ const createStudentValidationShema = z.object({
       guardint: guardiantValidationSchema,
       localGuardiant: localguardiantValidationSchema,
       profileImage: z.string().optional(),
+      admissionSemester:z.string(),
     }),
   }),
 });
