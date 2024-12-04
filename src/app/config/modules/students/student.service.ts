@@ -4,18 +4,32 @@ import mongoose from "mongoose";
 import { Student} from "./student.model";
 
 const getAllStudentsFromDB = async() => {
-    const result = await Student.find();
-    return result;
-
+  const result = await Student.find()
+    .populate('admissionSemester')
+    .populate({
+      path: 'academicDepartment',
+      populate: {
+        path: 'academicFaclties',
+      },
+    });
+  ;
+  return result;
 }
 
 const getsingleStudentFromDB = async (studentId: string) => {
-  // const result = await Student.findOne({ _id: studentId });
-   const result = await Student.aggregate([
-     {
-       $match: { _id: new mongoose.Types.ObjectId(studentId) }
-     },
-   ]);
+  const result = await Student.findOne({ _id: studentId })
+    .populate('admissionSemester')
+    .populate({
+      path: 'academicDepartment',
+      populate: {
+        path: 'academicFaclties',
+      },
+    });
+  //  const result = await Student.aggregate([
+  //    {
+  //      $match: { _id: new mongoose.Types.ObjectId(studentId) }
+  //    },
+  //  ]);
 
   return result;
 };

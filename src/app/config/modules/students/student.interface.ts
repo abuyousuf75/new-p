@@ -27,7 +27,7 @@ export type TGuardint = {
 export type TStudent = {
   id?: string;
   user: Types.ObjectId;
-  password: string,
+  password: string;
   name: UserName;
   gender: 'male' | 'female' | 'others';
   dateOfBirth?: Date;
@@ -36,12 +36,13 @@ export type TStudent = {
   bloodGroup?: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
   email: string;
   avatar?: string;
-  presentAddress : string;
-  permanentAddress : string;
-  guardint:TGuardint;
-  localGuardiant : TLocalGuardiant;
-  profileImage? : string;
-  admissionSemester : Types.ObjectId
+  presentAddress: string;
+  permanentAddress: string;
+  guardint: TGuardint;
+  localGuardiant: TLocalGuardiant;
+  profileImage?: string;
+  admissionSemester: Types.ObjectId;
+  academicDepartment: Types.ObjectId;
 };
 
 

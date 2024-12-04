@@ -22,7 +22,7 @@ const updateAcademicDepartmentValidationSchema = z.object({
     academicFaclties: z.string({
       invalid_type_error: 'Give academic Departmant name as string',
       required_error: 'AcademicDepartment Name is required',
-    }),
+    }).optional(),
   }).optional(),
 });
 
