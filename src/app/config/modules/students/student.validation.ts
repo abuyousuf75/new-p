@@ -1,4 +1,3 @@
-
 import { z } from 'zod';
 
 // UserName Schema
@@ -50,7 +49,7 @@ const localguardiantValidationSchema = z.object({
 });
 
 // Main Student Schema
-const createStudentValidationShema = z.object({
+const createStudentValidationSchema = z.object({
   body: z.object({
     password: z.string().max(20),
     student: z.object({
@@ -65,6 +64,7 @@ const createStudentValidationShema = z.object({
         .trim()
         .min(1, 'Email is required')
         .email('Invalid email format'),
+        
       contactNo: z.string().trim().min(1, 'Contact number is required'),
       emergencyContactNo: z
         .string()
@@ -87,4 +87,38 @@ const createStudentValidationShema = z.object({
   }),
 });
 
-export default createStudentValidationShema;
+// Update Student Validation Schema
+
+const updateStudentValidationSchema = z.object({
+  body: z.object({
+    student: z
+      .object({
+        name: userNameValidationSchema.partial(), // Makes all fields in `name` optional
+        gender: z.enum(['male', 'female', 'others']).optional(),
+        dateOfBirth: z.string().optional(),
+        email: z.string().trim().email('Invalid email format').optional(),
+        contactNo: z.string().trim().optional(),
+        emergencyContactNo: z.string().trim().optional(),
+        bloodGroup: z
+          .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
+          .optional(),
+        presentAddress: z.string().trim().optional(),
+        permanentAddress: z.string().trim().optional(),
+        guardian: guardiantValidationSchema.partial(), // Makes all fields in `guardian` optional
+        localGuardian: localguardiantValidationSchema.partial(), // Makes all fields in `localGuardian` optional
+        profileImage: z.string().optional(),
+        admissionSemester: z.string().optional(),
+        academicDepartment: z.string().optional(),
+      })
+      .partial(), // Makes all fields in `student` optional
+  }),
+});
+
+
+
+
+// Export validations
+export const studentValidations = {
+  createStudentValidationSchema,
+  updateStudentValidationSchema,
+};

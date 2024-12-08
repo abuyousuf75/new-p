@@ -5,7 +5,10 @@ import { AcademicDepartmentControlers } from './academicDepartment.contrloer';
 
 const router = express.Router();
 
-router.post('/create-academic-department', validateRequest(academicDepartmentValidation.createAcademicDepartmentValidationSchema), AcademicDepartmentControlers.createAcademicDepartmant);
+router.post('/create-academic-department',
+    //  validateRequest(academicDepartmentValidation.createAcademicDepartmentValidationSchema), 
+     
+     AcademicDepartmentControlers.createAcademicDepartmant);
 
 router.get('/', AcademicDepartmentControlers.getAllAcademicDepartmet);
 

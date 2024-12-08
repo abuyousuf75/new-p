@@ -4,7 +4,9 @@ import sendResponse from '../../uttiles/sendResponse';
 import catchAsync from '../../uttiles/catchAsync';
 
 const getAllStudents = catchAsync(async (req, res) => {
-  const result = await StudentServices.getAllStudentsFromDB();
+  console.log(req.query);
+  const result = await StudentServices.getAllStudentsFromDB(req.query);
+  
    sendResponse(res, {
      statusCode: httpStatus.OK,
      success: true,
@@ -14,7 +16,8 @@ const getAllStudents = catchAsync(async (req, res) => {
 });
 
 const getSingleStudent = catchAsync(async (req, res) => {
-  const { studentId } = req.params;
+  const {studentId}= req.params
+  console.log(studentId)
   const result = await StudentServices.getsingleStudentFromDB(studentId);
   
   sendResponse(res, {
@@ -26,7 +29,7 @@ const getSingleStudent = catchAsync(async (req, res) => {
 });
 
 const deleteAStudent = catchAsync(async (req, res) => {
-  const student = req.params.studentId;
+  const student = req.params.id;
   const result = await StudentServices.deleteAStudentfromDB(student);
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -38,8 +41,8 @@ const deleteAStudent = catchAsync(async (req, res) => {
 
 const updateAStudent = catchAsync(async (req, res) => {
   const { studentId } = req.params;
-  const doc = req.body;
-  const result = await StudentServices.updateAStdentFromDB(studentId, doc);
+  const {student} = req.body;
+  const result = await StudentServices.updateAStdentFromDB(studentId, student);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

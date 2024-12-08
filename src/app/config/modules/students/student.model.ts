@@ -1,3 +1,4 @@
+
 import { Schema, model, connect } from 'mongoose';
 import {
   TGuardint,
@@ -7,6 +8,8 @@ import {
   UserName,
 } from './student.interface';
 import validator from 'validator';
+import AppError from '../../erroes/AppError';
+import httpStatus from 'http-status-codes'
 
 
 const userNameSchema = new Schema<UserName>({
@@ -151,11 +154,14 @@ const studentSchema = new Schema<TStudent, StudentModel>(
     admissionSemester: {
       type: Schema.Types.ObjectId,
       ref: 'AcademicSemester',
-  
     },
     academicDepartment: {
       type: Schema.Types.ObjectId,
       ref: 'AcademicDepertment',
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
     },
   },
   {
@@ -165,11 +171,14 @@ const studentSchema = new Schema<TStudent, StudentModel>(
   }
 );
 
+// if invalid id given then we will throw error 
+
+
 
 // virtual mongoose
 
 studentSchema.virtual('fullName').get(function(){
-  return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`
+  return `${this.name?.firstName} ${this.name?.middleName} ${this.name?.lastName}`
 })
 
 // creting an custom instance method

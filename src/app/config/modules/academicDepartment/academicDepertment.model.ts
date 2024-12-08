@@ -6,7 +6,7 @@ import AppError from '../../erroes/AppError';
 
 const academicDepertmantSchema = new Schema<TAcademicDepartment>(
   {
-    name: { type: String, required: true },
+    name: { type: String, required: true, unique:true },
     academicFaclties: {
       type: Schema.Types.ObjectId,
       ref: 'AcademicFacaliy',
@@ -24,7 +24,7 @@ academicDepertmantSchema.pre('save', async function (next) {
     name: this.name,
   });
   if (isAcademicDepartmentExsist) {
-    throw new Error(`${isAcademicDepartmentExsist.name} is alredy exsist`);
+    throw new AppError(httpStatus.NOT_FOUND,`${isAcademicDepartmentExsist.name} is alredy exsist`);
   }
   next();
 });

@@ -9,7 +9,7 @@ export default {
   db_url: process.env.DB_URL,
   bycript_salt_round: process.env.BYCRIPT_SALT_ROUNDS,
   default_password: process.env.DEFAULT_PASSWORD,
-
+  NODE_ENV: process.env.NODE_ENV,
 };
 
 //C:\Users\GEN-Z\Desktop\first-project
