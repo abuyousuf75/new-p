@@ -8,8 +8,7 @@ import {
   UserName,
 } from './student.interface';
 import validator from 'validator';
-import AppError from '../../erroes/AppError';
-import httpStatus from 'http-status-codes'
+
 
 
 const userNameSchema = new Schema<UserName>({

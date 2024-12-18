@@ -81,6 +81,7 @@ import studentSerchableFileds from './student.constant';
 
 const studetQuery = new QueryBuilders(
   Student.find()
+  .populate('user')
       .populate('admissionSemester')
       .populate({
         path: 'academicDepartment',

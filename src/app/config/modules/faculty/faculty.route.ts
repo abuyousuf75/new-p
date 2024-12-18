@@ -3,10 +3,12 @@ import express from 'express';
 import { FacaltyControlers } from './faculty.controler';
 import validateRequest from '../../middleWares/validateRequest';
 import { studentValidations } from './faculty.validation';
+import auth from '../../middleWares/auth';
 
 const router = express.Router();
 
 router.get('/', FacaltyControlers.getAllFacalty);
+
 router.get('/:id', FacaltyControlers.getSingleFacalty);
 router.patch('/:id', validateRequest(studentValidations.updateFacultyValidationSchema), FacaltyControlers.updateSingleFacalty);
 

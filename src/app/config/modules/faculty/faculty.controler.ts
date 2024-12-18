@@ -5,6 +5,7 @@ import { FacaltyService } from './faculty.service';
 
 
 const getAllFacalty = catchAsync(async (req, res) => {
+  console.log('test', req.user)
 
   const result = await FacaltyService.getAllFacaltysFromDB(req.body);
 
