@@ -38,8 +38,10 @@ const loginUser = async (payload: TLoginUser) => {
   // checking if the password is correct
 
   if (!(await User.isPasswordMatched(payload?.password, user?.password))) {
-    throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched!');
+    throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched !');
   }
+
+ 
 
   // Access Granted: Send Access token and referesh token
 
@@ -73,7 +75,7 @@ const changePassword = async (
   const user = await User.isUserExsistByCustomId(userData?.userId);
 
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, 'This user not found!');
+    throw new AppError(httpStatus.NOT_FOUND, 'This user not found !');
   }
 
   // check if user alredy deleted
@@ -96,9 +98,11 @@ const changePassword = async (
 
   // checking if the password is correct
 
-  if (!(await User.isPasswordMatched(payload?.oldPassword, user?.password))) {
-    throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched!');
-  }
+  if (!(await User.isPasswordMatched(payload?.oldPassword, user?.password)))
+    throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched');
+
+
+   
 
   /// hased new password
 

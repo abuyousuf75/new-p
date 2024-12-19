@@ -5,83 +5,15 @@ import { Student } from './student.model';
 import AppError from '../../erroes/AppError';
 import { User } from '../user/user.model';
 import QueryBuilders from '../../builder/QueryBilder';
-import { query } from 'express';
+
 import studentSerchableFileds from './student.constant';
 
  const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
-  console.log('base qurey', query);
-
-  const queryObj = { ...query }; //copy
-
-  let searchTerm = '';
-  // const studentSerchableFileds = ['email', 'name.firstName', 'presentAddress'];
-
-//   // if (query?.searchTerm) {
-//   //   searchTerm = query.searchTerm as string;
-//   // }
-
-//   // const serchQuery = Student.find({
-//   //   $or: studentSerchableFileds.map((field) => ({
-//   //     [field]: { $regex: searchTerm, $options: 'i' },
-//   //   })),
-//   // });
-
-//   // // filtering
-
-//   // const excludeFileds = ['searchTerm', 'sort', 'limit', 'page', 'fileds'];
-
-//   // excludeFileds.forEach((el) => delete queryObj[el]);
-
-//   // const filterQuery = serchQuery
-//   //   .find(queryObj)
-//   //   .populate('admissionSemester')
-//   //   .populate({
-//   //     path: 'academicDepartment',
-//   //     populate: {
-//   //       path: 'academicFaclties',
-//   //     },
-//   //   });
-
-// //   let sort = '-createdAt';
-
-// //   if (query?.sort) {
-// //     sort = query.sort as string;
-// //   }
-
-// //   const sortQuery = filterQuery.sort(sort);
-
-// //   let page = 1;
-// //   let skip = 0;
-// //   let limit = 1;
-// //    if (query?.limit) {
-// //      limit = query.limit as number;
-// //    }
-
-//   // if(query?.page){
-//   //   page = query.page as number;
-//   //   skip = (page-1)*limit
-//   }
-
-// // const paginateQuery = sortQuery.skip(skip);
-
-
  
-// //   const limitQuery = paginateQuery.limit(limit);
-
-// //   let fileds = '-__v';
-
-// //   if (query?.fileds) {
-// //     fileds = (query.fileds as string).split(',').join(' ');
-   
-// //   }
-
-// //   const filedQuery =await limitQuery.select(fileds)
-
-// //   return filedQuery;
 
 const studetQuery = new QueryBuilders(
   Student.find()
-  .populate('user')
+  
       .populate('admissionSemester')
       .populate({
         path: 'academicDepartment',

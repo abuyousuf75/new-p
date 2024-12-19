@@ -12,9 +12,16 @@ export interface TUser {
   status: 'in-progress' | 'blocked';
 }
 
-export interface UserModel extends Model<TUser>{
-    isUserExsistByCustomId(id:string): Promise<TUser>;
-    isPasswordMatched(plainTextPassword:string,hasedPassword:string): Promise<boolean>
+export interface UserModel extends Model<TUser> {
+  isUserExsistByCustomId(id: string): Promise<TUser>;
+  isPasswordMatched(
+    plainTextPassword: string,
+    hasedPassword: string
+  ): Promise<boolean>;
+  isJWTIssuedBeforePasswordChanged(
+    passwordChangedTimestamp: Date,
+    jwtIssuedTimestamp: number
+  ): boolean;
 }
 
 export type TUserRole = keyof typeof USER_ROLE;

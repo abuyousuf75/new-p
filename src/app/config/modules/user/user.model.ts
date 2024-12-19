@@ -21,7 +21,7 @@ const userSchema = new Schema<TUser,UserModel>({
         default : true,
     },
     passwordChangedAt : {
-        type : Date
+        type : Date,
     },
     role : {
         type : String,
@@ -47,7 +47,9 @@ const userSchema = new Schema<TUser,UserModel>({
 
 userSchema.pre('save',async function(next){
   const user = this; 
+  console.log(user.password)
    user.password = await bcrypt.hash(user.password, Number(config.bycript_salt_round));
+
    next();
 })
 
@@ -70,6 +72,18 @@ userSchema.statics.isPasswordMatched = async function (
 ) {
   return await bcrypt.compare(plainTextPassword, hasedPassword);
 };
+
+
+userSchema.statics.isJWTIssuedBeforePasswordChanged = function (
+  passwordChangedTimestamp: Date,
+  jwtIssuedTimestamp: number
+) {
+  const passwordChangedTime =
+    new Date(passwordChangedTimestamp).getTime() / 1000;
+    console.log(passwordChangedTime, jwtIssuedTimestamp)
+  return passwordChangedTime > jwtIssuedTimestamp;
+};
+
 
 export const User = model<TUser, UserModel>('User', userSchema);
 

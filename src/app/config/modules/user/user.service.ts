@@ -20,10 +20,10 @@ import { TAdmin } from '../admin/admin.interface';
 import { Admin } from '../admin/admin.model';
 
 const createStudentInDB = async (password: string, payload: TStudent) => {
-  const userData: Partial<TUser> = {
-    password: password || (config.default_password as string),
-    role: 'student',
-  };
+  const userData: Partial<TUser> = {};
+  
+  userData.password = password || (config.default_password as string)
+   userData.role = 'student'
 
   const admissionSemester = await AcademicSemester.findById(
     payload.admissionSemester
