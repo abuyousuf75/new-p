@@ -1,12 +1,12 @@
 
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-import { userRoutes } from './app/config/modules/user/user.route';
 const app: Application = express();
-
 import globalErrorHandeler from './app/config/middleWares/globalerrohandeler';
 import notFound from './app/config/middleWares/notfound';
 import router from './app/config/routes';
+import cookieParser from 'cookie-parser';
+
 
 
 
@@ -14,7 +14,8 @@ import router from './app/config/routes';
 //parser
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({ origin: ['http://localhost:5000'] }));
+app.use(cookieParser())
 
 // application routes
 

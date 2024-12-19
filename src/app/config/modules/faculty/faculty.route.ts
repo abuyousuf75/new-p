@@ -11,9 +11,9 @@ const router = express.Router();
 router.get('/', auth(USER_ROLE.admin, USER_ROLE.faculty), FacaltyControlers.getAllFacalty);
 
 router.get('/:id', FacaltyControlers.getSingleFacalty);
-router.patch('/:id', validateRequest(studentValidations.updateFacultyValidationSchema), FacaltyControlers.updateSingleFacalty);
+router.patch('/:id', auth('admin'), validateRequest(studentValidations.updateFacultyValidationSchema), FacaltyControlers.updateSingleFacalty);
 
-router.delete('/:id', FacaltyControlers.deleteAFacalty)
+router.delete('/:id', auth('admin'), FacaltyControlers.deleteAFacalty)
 
 
 
